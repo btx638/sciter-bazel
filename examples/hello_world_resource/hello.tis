@@ -1,0 +1,14 @@
+class Hello : Element {
+  function attached() {
+    var message = this.attributes["message"] || "?";
+    this.content([<h1>{message}</h1>,
+                 <button.expand>+</button>,
+                 <button.collapse>-</button>]);
+  }
+  event click $(button.expand) {
+    this.state.expanded = true;
+  }
+  event click $(button.collapse) {
+    this.state.collapsed = true;
+  }
+}
