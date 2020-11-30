@@ -17,7 +17,7 @@ public:
 
 };
 
-#include "hello_world_resource.h"
+#include "resource.h" // produced by cc_sciter_resource
 
 int uimain(std::function<int()> run ) {
 

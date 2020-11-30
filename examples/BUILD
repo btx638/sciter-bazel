@@ -7,19 +7,13 @@ cc_binary(
     ],
     deps = [
         "//third_party/sciter",
-        ":hello_world_resource_lib"
+        ":resource_lib"
     ])
 
-cc_library(
-    name = "hello_world_resource_lib",
-    hdrs = [
-        "hello_world_resource.h",
-    ],
-    strip_include_prefix = "/examples" # why do I need this
-)
-
+# globs the folder at root into sciter resource
+# as name.h in name_lib
 cc_sciter_resource(
-    name = "hello_world_resource.h",
     root = "hello_world_resource",
-    files = glob(["hello_world_resource/**/*"])
+    name = "resource", 
+    strip_include_prefix = "/examples"
 )

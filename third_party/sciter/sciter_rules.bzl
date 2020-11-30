@@ -18,7 +18,7 @@ def _impl(ctx):
         DefaultInfo(files = depset([output_file])),
     ]
 
-cc_sciter_resource = rule(
+sciter_packfolder = rule(
     implementation = _impl,
     attrs = {
         "root": attr.label(
@@ -37,3 +37,25 @@ cc_sciter_resource = rule(
     }
 )
 
+def cc_sciter_resource(name, root, strip_include_prefix = None):
+    filename = name + ".h"
+    libname = name + "_lib"
+    
+    sciter_packfolder(
+        name = filename,
+        root = root,
+        files = native.glob([root + "/*/**"]),
+    )
+
+    native.cc_library(
+        name = libname,
+        hdrs = [filename],
+        strip_include_prefix = strip_include_prefix)
+
+    
+
+    
+
+    
+        
+    
