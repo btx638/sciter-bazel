@@ -4,13 +4,13 @@ def _impl(ctx):
     rel_paths = []
 
     root_len = len(ctx.file.root.path)
-    for f in ctx.files.filegroup:
+    for f in ctx.files.files:
         if not f.path.startswith(ctx.file.root.path):
             fail("{} is not rooted at {}".format(f.path, ctx.file.root.path))
         rel_paths.append(f.path[root_len+1:]) # this strips off the prefix equal to root, plus leading slash
 
     ctx.actions.run(
-        inputs = ctx.files.filegroup,
+        inputs = ctx.files.files,
         outputs = [output_file],
         arguments = [ctx.file.root.path, output_file.path, "-i", ";".join(rel_paths)],
         executable = ctx.executable.packfolder)
@@ -25,8 +25,10 @@ cc_sciter_resource = rule(
             mandatory = True,
             allow_single_file = True,
         ),
-        "filegroup": attr.label(
-            mandatory = True),
+        "files": attr.label_list(
+            mandatory = True,
+            allow_files = True
+        ),
         "packfolder": attr.label(
             default = Label("//third_party/sciter:packfolder"),
             executable = True,

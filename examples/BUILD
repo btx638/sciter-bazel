@@ -18,13 +18,8 @@ cc_library(
     strip_include_prefix = "/examples" # why do I need this
 )
 
-filegroup(
-    name = "hello_world_resource_files",
-    srcs = glob(["hello_world_resource/**/*"])
-)
-
 cc_sciter_resource(
     name = "hello_world_resource.h",
     root = "hello_world_resource",
-    filegroup = ":hello_world_resource_files"
+    files = glob(["hello_world_resource/**/*"])
 )
