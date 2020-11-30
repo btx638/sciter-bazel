@@ -11,7 +11,7 @@ cc_binary(
     ])
 
 # globs the folder at root into sciter resource
-# as name.h in name_lib
+# as {name}.h in {name}_lib
 cc_sciter_resource(
     root = "hello_world_resource",
     name = "resource", 
